@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <script>
+    // Exemplo de dados de faturamento em formato JSON
+        const dadosFaturamento = {
+            "2022-01-01": 1000,
+            "2022-01-02": null,  // fim de semana (ignorado no cálculo da média)
+            "2022-01-03": 1200,
+            "2022-01-04": 1500,
+            "2022-01-05": 800,
+            "2022-01-06": 1400,
+            "2022-01-07": 900,
+            "2022-01-08": null,  // fim de semana (ignorado no cálculo da média)
+            "2022-01-09": null   // fim de semana (ignorado no cálculo da média)
+        };
+
+    // Extrai valores de faturamento diário
+        const faturamentoDiario = [];
+        for (const [data, valor] of Object.entries(dadosFaturamento)) {
+            const diaDaSemana = new Date(data).getDay();  // 0 (domingo) a 6 (sábado)
+            if (diaDaSemana !== 0 && diaDaSemana !== 6 && valor !== null) {  // Ignorar fins de semana e dias sem faturamento
+                faturamentoDiario.push(valor);
+            }
+        }
+
+    // Encontra menor e maior faturamento diário
+        let menorFaturamento = faturamentoDiario[0];
+        let maiorFaturamento = faturamentoDiario[0];
+        let somaFaturamento = faturamentoDiario[0];
+        for (let i = 1; i < faturamentoDiario.length; i++) {
+            const faturamento = faturamentoDiario[i];
+            if (faturamento < menorFaturamento) {
+                menorFaturamento = faturamento;
+            }
+            if (faturamento > maiorFaturamento) {
+                maiorFaturamento = faturamento;
+            }         
+        somaFaturamento += faturamento;
+        }       
+
+    // Calcula média mensal
+        const diasComFaturamento = faturamentoDiario.length;
+        const mediaMensal = somaFaturamento / diasComFaturamento;
+
+    // Conta quantos dias o faturamento diário foi superior à média mensal
+        let diasAcimaMedia = 0;
+        for (const faturamento of faturamentoDiario) {
+            if (faturamento > mediaMensal) {
+                diasAcimaMedia++;
+            }
+        }
+
+    // Exibe resultados
+        console.log("Menor faturamento diário:", menorFaturamento);
+        console.log("Maior faturamento diário:", maiorFaturamento);
+        console.log("Dias com faturamento acima da média:", diasAcimaMedia, "de um total de", diasComFaturamento, "dias úteis.");
+    </script>
+</body>
+</html>
