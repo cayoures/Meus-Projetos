@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <script>
+        let string = "Ola, mundo!";
+        let chars = string.split("");
+        let start = 0;
+        let end = chars.length - 1;
+        while (end > start) {
+            let temp = chars[start];
+            chars[start] = chars[end];
+            chars[end] = temp; 
+            start++;
+            end--;
+        }
+        let invertedString = chars.join("");
+        console.log(invertedString);
+    </script>
+</body>
+</html>
