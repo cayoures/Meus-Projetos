@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <script>
+        function fibonacciSequence(n) {
+            let a = 0, b = 1;
+            while (b < n) {
+                let temp = b;
+                b = a + b;
+                a = temp;
+            }
+            return [a, b];
+        }
+  
+        function checkFibonacci(n) {
+            const [a, b] = fibonacciSequence(n);
+            if (b === n) {
+                return `${n} pertence à sequência de Fibonacci`;
+            } else {
+                return `${n} não pertence à sequência de Fibonacci`;
+            }
+        }
+  
+        const numero = prompt("Digite um número: ");
+        console.log(checkFibonacci(numero));
+    </script>
+</body>
+</html>
